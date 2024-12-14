@@ -1,26 +1,42 @@
-<!-- resources/views/clientes.blade.php -->
-
-@extends('layouts.app') <!-- Extende o layout app.blade.php -->
+@extends('layouts.app')
 
 @section('title', 'Clientes')
 
-@section('content') <!-- Define o conteúdo da página -->
+@section('content')
     <h1>Lista de Clientes</h1>
 
-    <!-- Tabela -->
     <div style="overflow-x:auto; text-align:center;">
-        <table style="width: 60%; margin: 20px auto; border-collapse: collapse; border: 2px solid #ff4081;">
+        <table style="width: 60%; margin: 20px auto; border-collapse: collapse;">
             <thead>
                 <tr style="background-color: #ff4081; color: #fff;">
-                    <th style="padding: 12px; border-right: 1px solid #fff; border-left: 1px solid #fff;">Nome</th>
-                    <th style="padding: 12px; border-right: 1px solid #fff; border-left: 1px solid #fff;">CPF</th>
+                    <th style="padding: 12px; border-right: 1px solid #fff;">Nome</th>
+                    <th style="padding: 12px; border-right: 1px solid #fff;">CPF</th>
+                    <th style="padding: 12px; border-right: 1px solid #fff;">Ações</th> <!-- Coluna para os botões -->
                 </tr>
             </thead>
             <tbody>
                 @foreach ($clientes as $cliente)
                     <tr style="background-color: #1e1e1e; color: #f0f0f0; border-bottom: 1px solid #555;">
-                        <td style="padding: 12px; border-right: 1px solid #555; border-left: 1px solid #555; word-wrap: break-word;">{{ $cliente->nome }}</td>
-                        <td style="padding: 12px; border-right: 1px solid #555; border-left: 1px solid #555;">{{ $cliente->cpf }}</td>
+                        <td style="padding: 12px; border-right: 1px solid #555; word-wrap: break-word;">{{ $cliente->nome }}</td>
+                        <td style="padding: 12px; border-right: 1px solid #555;">{{ $cliente->cpf }}</td>
+                        <td style="text-align: center; padding: 12px;">
+
+                            <!-- Botão de Editar -->
+                            <a href="{{ route('clientes.editar', $cliente->cpf) }}"
+                                style="color: #ff4081; font-size: 18px; text-decoration: none; margin-right: 10px;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Botão de Excluir -->
+                            <form action="{{ route('clientes.excluir', $cliente->cpf) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        style="background: none; border: none; color: #ff4081; font-size: 18px; cursor: pointer;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

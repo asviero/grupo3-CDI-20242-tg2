@@ -1,4 +1,3 @@
-<!-- resources/views/cadastro.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Cadastro - Casa Noturna')
@@ -41,6 +40,15 @@
 
         <button type="submit">Cadastrar</button>
     </form>
+
+    <!-- Botão Voltar -->
+    <div style="margin-top: 20px; text-align: left;">
+        <a href="{{ url('/') }}" style="text-decoration: none;">
+            <button style="padding: 12px 20px; background-color: #ff4081; color: #fff; border: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease;">
+                Voltar
+            </button>
+        </a>
+    </div>
 
     <script>
         $(document).ready(function () {
