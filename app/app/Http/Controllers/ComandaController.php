@@ -9,6 +9,7 @@ class ComandaController extends Controller
 {
     public function index()
     {
+        // Recupera todas as comandas e os dados dos clientes associados
         $comandas = DB::select("
             SELECT
                 Comanda.id_comanda,
@@ -20,7 +21,7 @@ class ComandaController extends Controller
 
         return view('comandas', ['comandas' => $comandas]);
     }
-    
+
     public function acrescentar($id_comanda)
     {
         // Recupera a comanda com o ID fornecido
@@ -33,7 +34,26 @@ class ComandaController extends Controller
         // Recupera as bebidas disponíveis
         $bebidas = DB::select('SELECT * FROM Bebidas');
 
-        return view('acrescentar_item', ['comanda' => $comanda[0], 'bebidas' => $bebidas]);
+        // Recupera os itens já adicionados à comanda, incluindo o nome da bebida, o preço e a quantidade
+        $itensComanda = DB::select('
+            SELECT
+                Bebidas.Nome AS nome_bebida,
+                Bebidas.Preco AS preco_bebida,
+                SUM(ItemComanda.Quantidade) AS quantidade_total
+            FROM ItemComanda
+            INNER JOIN Bebidas ON ItemComanda.ID_Bebida = Bebidas.ID_Bebida
+            WHERE ItemComanda.ID_Comanda = ?
+            GROUP BY Bebidas.Nome, Bebidas.Preco
+', [$id_comanda]);
+
+        // Depuração: Verifique o conteúdo de $itensComanda
+        // dd($itensComanda); // Descomente para depurar e verifique se "quantidade" está vindo corretamente
+
+        return view('acrescentar_item', [
+            'comanda' => $comanda[0],
+            'bebidas' => $bebidas,
+            'itensComanda' => $itensComanda
+        ]);
     }
 
     public function salvarItem(Request $request, $id_comanda)
@@ -44,17 +64,18 @@ class ComandaController extends Controller
             'quantidade' => 'required|integer|min:1',
         ]);
 
-        // Insira o item na tabela de ItemComanda
-        DB::insert('
-            INSERT INTO ItemComanda (ID_Comanda, ID_Bebida, Quantidade)
-            VALUES (?, ?, ?)
-        ', [
-            $id_comanda, 
-            $request->bebida, 
-            $request->quantidade
-        ]);
+        // Insere o item na tabela de ItemComanda
+        DB::insert(
+            'INSERT INTO ItemComanda (ID_Comanda, ID_Bebida, Quantidade)
+            VALUES (?, ?, ?)', 
+            [
+                $id_comanda, 
+                $request->input('bebida'), 
+                $request->input('quantidade')
+            ]
+        );
 
-        return redirect()->route('comandas')->with('success', 'Item acrescentado à comanda!');
+        return redirect()->route('comandas.acrescentar', ['id_comanda' => $id_comanda])
+            ->with('success', 'Item acrescentado à comanda!');
     }
-
 }

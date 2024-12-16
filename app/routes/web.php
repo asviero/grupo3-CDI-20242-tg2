@@ -55,10 +55,10 @@ Route::get('/comandas', [ComandaController::class, 'index'])->name('comandas');
 Route::get('/comandas/acrescentar/{id_comanda}', [ComandaController::class, 'acrescentar'])->name('comandas.acrescentar');
 
 //Rota para salvar os itens
-Route::post('/comandas/{id_comanda}/salvar-item', [ComandaController::class, 'salvarItem'])->name('comandas.salvar_item');
+Route::post('/comandas/{id_comanda}/salvar-item', [ComandaController::class, 'salvarItem'])->name('comandas.salvarItem');
 
 // Rota para mostrar o formulário de adicionar item à comanda
-Route::get('/comanda/{id_comanda}/acrescentar', [ComandaController::class, 'acrescentar'])->name('comandas.acrescentar');
+Route::get('/comandas/{id_comanda}/acrescentar', [ComandaController::class, 'acrescentar'])->name('comandas.acrescentar');
 
 // Rota para salvar o item na comanda
 Route::post('/comanda/{id_comanda}/salvar-item', [ComandaController::class, 'salvarItem'])->name('comandas.salvar_item');

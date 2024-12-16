@@ -17,8 +17,8 @@ class CadastroController extends Controller
         $tipo = $request->input('tipo');
 
         // Insere os dados na tabela Pessoa
-        DB::insert('INSERT INTO Pessoa (cpf, nome, telefone, data_nascimento) VALUES (?, ?, ?, ?)', 
-        [$cpf, $nome, $telefone, $data_nascimento]);
+        DB::insert('INSERT INTO Pessoa (cpf, nome, telefone, data_nascimento, tipo) VALUES (?, ?, ?, ?, ?)',
+        [$cpf, $nome, $telefone, $data_nascimento, $tipo]);
 
         // Insere na tabela Cliente ou Funcionário
         if ($tipo === 'Cliente') {
