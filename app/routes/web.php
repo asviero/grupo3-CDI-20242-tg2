@@ -74,4 +74,4 @@ Route::delete('/funcionarios/{cpf}', [FuncionarioController::class, 'excluir'])-
 Route::get('/funcionarios/editar/{cpf}', [FuncionarioController::class, 'editar'])->name('funcionarios.editar');
 
 // Rota para atualizar um funcionário
-Route::put('/funcionarios/{cpf}', [FuncionarioController::class, 'atualizar'])->name('funcionarios.atualizar');
+Route::put('/funcionario/atualizar/{cpf}', [FuncionarioController::class, 'atualizar'])->name('funcionario.atualizar');

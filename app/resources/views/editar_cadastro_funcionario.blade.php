@@ -5,24 +5,32 @@
 @section('content')
     <h1>Editar Funcionário</h1>
 
-    <form action="{{ route('funcionarios.atualizar', $funcionario->cpf) }}" method="POST">
+    <form action="{{ route('funcionario.atualizar', $funcionario->cpf) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" value="{{ $funcionario->nome }}" required>
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="{{ old('nome', $funcionario->nome) }}" required>
+        </div>
         
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" value="{{ $funcionario->telefone }}" required>
-        
-        <label for="data_nascimento">Data de Nascimento:</label>
-        <input type="date" id="data_nascimento" name="data_nascimento" value="{{ $funcionario->data_nascimento }}" required>
-        
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" name="tipo" required>
-            <option value="Cliente" {{ $funcionario->tipo == 'Cliente' ? 'selected' : '' }}>Cliente</option>
-            <option value="Funcionario" {{ $funcionario->tipo == 'Funcionario' ? 'selected' : '' }}>Funcionário</option>
-        </select>
+        <div>
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" value="{{ old('telefone', $funcionario->telefone) }}" required>
+        </div>
+
+        <div>
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" value="{{ old('data_nascimento', $funcionario->data_nascimento) }}" required>
+        </div>
+
+        <div>
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="Cliente" {{ old('tipo', $funcionario->tipo) == 'Cliente' ? 'selected' : '' }}>Cliente</option>
+                <option value="Funcionario" {{ old('tipo', $funcionario->tipo) == 'Funcionario' ? 'selected' : '' }}>Funcionário</option>
+            </select>
+        </div>
 
         <button type="submit" class="button">Atualizar</button>
     </form>
