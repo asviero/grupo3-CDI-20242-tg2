@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\CadastroController;
+use App\Http\Controllers\ComandaController;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -44,14 +45,23 @@ Route::get('/clientes/editar/{cpf}', [ClienteController::class, 'editar'])->name
 // Rota para atualizar os dados do cliente
 Route::put('/clientes/atualizar/{cpf}', [ClienteController::class, 'atualizar'])->name('clientes.atualizar');
 
-//Rota TODOS
-Route::get('/todos', function () {
-    // Consulta SQL para buscar todos os clientes e funcionários
-    $cadastros = DB::select('SELECT * FROM Pessoa');
 
-    // Retorna a view com os dados de todos os cadastros
-    return view('todos', ['cadastros' => $cadastros]);
-})->name('todos');
+
+
+//Rota para acessar comandas
+Route::get('/comandas', [ComandaController::class, 'index'])->name('comandas');
+
+//Rota para acrescentar item na comanda
+Route::get('/comandas/acrescentar/{id_comanda}', [ComandaController::class, 'acrescentar'])->name('comandas.acrescentar');
+
+//Rota para salvar os itens
+Route::post('/comandas/{id_comanda}/salvar-item', [ComandaController::class, 'salvarItem'])->name('comandas.salvar_item');
+
+// Rota para mostrar o formulário de adicionar item à comanda
+Route::get('/comanda/{id_comanda}/acrescentar', [ComandaController::class, 'acrescentar'])->name('comandas.acrescentar');
+
+// Rota para salvar o item na comanda
+Route::post('/comanda/{id_comanda}/salvar-item', [ComandaController::class, 'salvarItem'])->name('comandas.salvar_item');
 
 
 // Rota para exibir todos os funcionários

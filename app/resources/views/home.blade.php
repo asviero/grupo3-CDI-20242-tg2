@@ -18,9 +18,9 @@
             style="display: inline-block; padding: 15px 50px; margin: 15px; background-color: #ff4081; color: #fff; text-decoration: none; font-size: 20px; font-weight: bold; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 64, 129, 0.5);">
             Funcionários
         </a>
-        <a href="{{ route('todos') }}" class="button" 
+        <a href="{{ route('comandas') }}" class="button" 
             style="display: inline-block; padding: 15px 50px; margin: 15px; background-color: #ff4081; color: #fff; text-decoration: none; font-size: 20px; font-weight: bold; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 64, 129, 0.5);">
-            Todos
+            Comandas
         </a>
     </div>
 

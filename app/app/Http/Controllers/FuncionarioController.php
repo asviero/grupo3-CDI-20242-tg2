@@ -28,5 +28,4 @@ class FuncionarioController extends Controller
         return redirect()->route('funcionarios')->with('success', 'Funcionário excluído com sucesso!');
     }
 
-    // Outras funções do controller podem ser adicionadas aqui
 }
