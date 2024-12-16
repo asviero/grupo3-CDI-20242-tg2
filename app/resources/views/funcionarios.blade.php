@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Clientes')
+@section('title', 'Funcionários')
 
 @section('content')
-    <h1>Lista de Clientes</h1>
+    <h1>Lista de Funcionários</h1>
 
     <div style="overflow-x:auto; text-align:center;">
         <table style="width: 60%; margin: 20px auto; border-collapse: collapse;">
@@ -15,19 +15,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clientes as $cliente)
+                @foreach ($funcionarios as $funcionario)
                     <tr style="background-color: #1e1e1e; color: #f0f0f0; border-bottom: 1px solid #555;">
-                        <td style="padding: 12px; border-right: 1px solid #555; word-wrap: break-word;">{{ $cliente->nome }}</td>
-                        <td style="padding: 12px; border-right: 1px solid #555;">{{ $cliente->cpf }}</td>
+                        <td style="padding: 12px; border-right: 1px solid #555; word-wrap: break-word;">{{ $funcionario->nome }}</td>
+                        <td style="padding: 12px; border-right: 1px solid #555;">{{ $funcionario->cpf }}</td>
                         <td style="padding: 12px; border-right: 1px solid #555;">
-                            <a href="{{ route('clientes.editar', ['cpf' => $cliente->cpf]) }}" style="color: #ff4081; font-size: 20px; text-decoration: none;">
+                            <a href="{{ route('funcionarios.editar', ['cpf' => $funcionario->cpf]) }}" style="color: #ff4081; font-size: 20px; text-decoration: none;">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
-                            <!-- Botão Excluir com formulário -->
-                            <form action="{{ route('clientes.excluir', ['cpf' => $cliente->cpf]) }}" method="POST" style="display:inline-block;">
+                            <!-- Botão Excluir com ícone -->
+                            <form action="{{ route('funcionarios.excluir', ['cpf' => $funcionario->cpf]) }}" method="POST" style="display: inline-block; margin-left: 10px;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="background: none; border: none; color: #ff4081; font-size: 20px;">
+                                <button type="submit" style="background: none; border: none; color: #ff4081; font-size: 20px; padding: 0; margin: 0; cursor: pointer;">
                                     <i class="fas fa-trash-alt"></i> Excluir
                                 </button>
                             </form>

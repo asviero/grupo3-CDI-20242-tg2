@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\CadastroController;
 
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,14 @@ Route::get('/todos', function () {
 })->name('todos');
 
 
-Route::get('/funcionarios', function () {
-    return 'Página de Funcionários';
-})->name('funcionarios');
+// Rota para exibir todos os funcionários
+Route::get('/funcionarios', [FuncionarioController::class, 'index'])->name('funcionarios');
 
+// Rota para excluir um funcionário
+Route::delete('/funcionarios/{cpf}', [FuncionarioController::class, 'excluir'])->name('funcionarios.excluir');
+
+// Rota para editar um funcionário
+Route::get('/funcionarios/editar/{cpf}', [FuncionarioController::class, 'editar'])->name('funcionarios.editar');
+
+// Rota para atualizar um funcionário
+Route::put('/funcionarios/{cpf}', [FuncionarioController::class, 'atualizar'])->name('funcionarios.atualizar');

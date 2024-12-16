@@ -53,17 +53,17 @@ class ClienteController extends Controller
             'data_nascimento' => 'required|date',
             'tipo' => 'required|in:Cliente,Funcionario',
         ]);
-        
+
         // Atualizando o cliente no banco de dados
         DB::table('Pessoa')
-        ->where('cpf', $cpf)
-        ->update([
-            'nome' => $request->input('nome'),
-            'telefone' => $request->input('telefone'),
-            'data_nascimento' => $request->input('data_nascimento'),
-            'tipo' => $request->input('tipo'),
-        ]);
+            ->where('cpf', $cpf)
+            ->update([
+                'nome' => $request->input('nome'),
+                'telefone' => $request->input('telefone'),
+                'data_nascimento' => $request->input('data_nascimento'),
+                'tipo' => $request->input('tipo'),
+            ]);
 
-    return redirect()->route('clientes')->with('success', 'Cadastro atualizado com sucesso!');
-}
+        return redirect()->route('clientes')->with('success', 'Cadastro atualizado com sucesso!');
+    }
 }
