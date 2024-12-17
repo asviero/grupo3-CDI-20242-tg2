@@ -78,4 +78,17 @@ class ComandaController extends Controller
         return redirect()->route('comandas.acrescentar', ['id_comanda' => $id_comanda])
             ->with('success', 'Item acrescentado à comanda!');
     }
+
+    public function confirmarPagamento($id_comanda)
+    {
+        // Deleta os itens da comanda da tabela ItemComanda
+        DB::table('ItemComanda')
+            ->where('ID_Comanda', $id_comanda)
+            ->delete();
+
+        // Redireciona para a página de comandas com sucesso
+        return redirect()->route('comandas.acrescentar', ['id_comanda' => $id_comanda])
+            ->with('success', 'Pagamento confirmado e itens deletados!');
+    }
+
 }

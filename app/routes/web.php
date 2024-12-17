@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\ComandaController;
+use App\Http\Controllers\FestaController;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -75,3 +76,15 @@ Route::get('/funcionarios/editar/{cpf}', [FuncionarioController::class, 'editar'
 
 // Rota para atualizar um funcionário
 Route::put('/funcionario/atualizar/{cpf}', [FuncionarioController::class, 'atualizar'])->name('funcionario.atualizar');
+
+// Rota para confirmar o pagamento
+Route::post('/comandas/{id_comanda}/confirmarPagamento', [ComandaController::class, 'confirmarPagamento'])->name('comandas.confirmarPagamento');
+
+// Rota para criar a Festa
+Route::get('/festa/criar', [FestaController::class, 'criar'])->name('festa.criar');
+
+// Rota para salvar a Festa
+Route::post('/festa/salvar', [FestaController::class, 'salvar'])->name('festa.salvar');
+
+// Rota para excluir a Festa
+Route::delete('/festa/excluir/{id_festa}', [FestaController::class, 'excluir'])->name('festa.excluir');

@@ -39,19 +39,27 @@
         <tbody>
             @php $totalComanda = 0; @endphp
             @foreach ($itensComanda as $item)
-                <tr>
-                    <td>{{ $item->nome_bebida }}</td>
-                    <td>{{ number_format($item->preco_bebida, 2, ',', '.') }}</td>
-                    <td>{{ isset($item->quantidade_total) ? $item->quantidade_total : 0 }}</td>
-                    <td>{{ number_format($item->preco_bebida * $item->quantidade_total, 2, ',', '.') }}</td>
-                </tr>
-                @php $totalComanda += $item->preco_bebida * $item->quantidade_total; @endphp
+                @if ($item->quantidade_total > 0)
+                    <tr>
+                        <td>{{ $item->nome_bebida }}</td>
+                        <td>{{ number_format($item->preco_bebida, 2, ',', '.') }}</td>
+                        <td>{{ $item->quantidade_total }}</td>
+                        <td>{{ number_format($item->preco_bebida * $item->quantidade_total, 2, ',', '.') }}</td>
+                    </tr>
+                    @php $totalComanda += $item->preco_bebida * $item->quantidade_total; @endphp
+                @endif
             @endforeach
         </tbody>
     </table>
 
     <!-- Exibir total da comanda -->
     <h3>Total: R$ {{ number_format($totalComanda, 2, ',', '.') }}</h3>
+
+    <!-- Botão para confirmar o pagamento -->
+    <form action="{{ route('comandas.confirmarPagamento', $comanda->id_comanda) }}" method="POST">
+        @csrf
+        <button type="submit" onclick="return confirm('Tem certeza que deseja confirmar o pagamento?')">Confirmar Pagamento</button>
+    </form>
 
     <!-- Link para voltar -->
     <a href="{{ route('comandas') }}">Voltar para as comandas</a>
